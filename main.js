@@ -1,45 +1,104 @@
-let discoCaro = "$100.000";
-let discoMedio = "$60.000";
-let discoBarato = "$20.000";
-
 function sistemaVentaDiscos() {
-  let discosDisponibles = [
-    { nombre: "Currents", precio: discoMedio },
-    { nombre: "This is it", precio: discoMedio },
-    { nombre: "Tattoo You", precio: discoCaro },
-    { nombre: "Destelloz", precio: discoCaro },
-    { nombre: "Lonerism", precio: discoBarato }
+  const discosDisponibles = [
+    {
+      nombreDisco: "Currents",
+      nombreBanda: "Tame Impala",
+      precioDisco: 40,
+      estadoDisco: "Nuevo",
+      cantidad: 2,
+    },
+    {
+      nombreDisco: "Lonerism",
+      nombreBanda: "Tame Impala",
+      precioDisco: 22,
+      estadoDisco: "Nuevo",
+      cantidad: 1,
+    },
+    {
+      nombreDisco: "Tattoo You",
+      nombreBanda: "Rolling Stones",
+      precioDisco: 20,
+      estadoDisco: "Nuevo",
+      cantidad: 1,
+    },
+    {
+      nombreDisco: "Destelloz",
+      nombreBanda: "Clubz",
+      precioDisco: 19,
+      estadoDisco: "Nuevo",
+      cantidad: 1,
+    },
+    {
+      nombreDisco: "This is it",
+      nombreBanda: "The Strokes",
+      precioDisco: 50,
+      estadoDisco: "Nuevo",
+      cantidad: 1,
+    },
   ];
 
-  let encontrado = false;
+  let mensajeDiscosDisponibles = "Discos disponibles:\n";
 
-  do {
-    let discoBuscado = prompt("Ingrese el nombre del disco que busca");
+  discosDisponibles.forEach((disco) => {
+    mensajeDiscosDisponibles += `Nombre: ${disco.nombreDisco}, Precio: ${disco.precioDisco}\n`;
+  });
 
-    encontrado = false;
+  alert(mensajeDiscosDisponibles);
 
-    alert(`Buscando el disco "${discoBuscado}" en el inventario...`);
+  const buscarDisco = (nombre) => {
+    return discosDisponibles.find(
+      (disco) => disco.nombreDisco.toLowerCase() === nombre.toLowerCase()
+    );
+  };
 
-    for (let i = 0; i < discosDisponibles.length; i++) {
-      if (discoBuscado.toLowerCase() === discosDisponibles[i].nombre.toLowerCase()) {
-        encontrado = true;
-        let comprar = confirm(`El disco "${discosDisponibles[i].nombre}" está disponible por un precio de ${discosDisponibles[i].precio}. ¿Desea comprarlo?`);
-        if (comprar) {
-          alert(`¡Compra realizada! Gracias por su compra.`);
+  const comprarDiscos = () => {
+    let precioTotal = 0;
+    let discosComprados = []; 
+
+    while (true) {
+      const discoBuscado = prompt("Ingrese el nombre del disco que desea comprar");
+      const discoEncontrado = buscarDisco(discoBuscado);
+
+      if (!discoEncontrado) {
+        alert("El disco no está en la lista.");
+        const seguirBuscando = confirm("¿Desea seguir buscando?");
+        if (!seguirBuscando) {
+          break; 
         } else {
-          alert(`Gracias por visitar nuestra tienda.`);
+          continue; 
         }
-        break;
+      }
+
+      const confirmarCompra = confirm(
+        `El disco "${discoEncontrado.nombreDisco}" está disponible por un precio de ${discoEncontrado.precioDisco}. ¿Desea comprarlo?`
+      );
+
+      if (confirmarCompra) {
+        precioTotal += discoEncontrado.precioDisco;
+        discosComprados.push({ nombreDisco: discoEncontrado.nombreDisco, precioDisco: discoEncontrado.precioDisco }); 
+      }
+
+      const continuarComprando = confirm("¿Desea comprar otro disco?");
+      if (!continuarComprando) {
+        break; 
       }
     }
 
-    if (!encontrado) {
-      let continuar = confirm(`El disco "${discoBuscado}" no está disponible en el inventario. ¿Desea seguir buscando?`);
-      if (!continuar) {
-        break;
-      }
+    if (discosComprados.length === 0) {
+      alert("Gracias, Vuelva pronto");
+    } else {
+      let mensaje = "Usted ha comprado los siguientes discos:\n";
+
+      discosComprados.forEach((disco) => {
+        mensaje += `Nombre: ${disco.nombreDisco}, Precio: ${disco.precioDisco}\n`;
+      });
+
+      mensaje += `El precio total de los discos seleccionados es: ${precioTotal}`;
+      alert(mensaje);
     }
-  } while (!encontrado);
+  };
+
+  comprarDiscos();
 }
 
 sistemaVentaDiscos();
