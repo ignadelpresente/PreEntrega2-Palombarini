@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Segunda Pre-Entrega Palombarini</title>
+    <title>Venta de Discos</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <script src="./main.js"></script>
+    <div class="eshop">
+        <h2>Nuestros Discos</h2>
+        <input type="text" id="busqueda" placeholder="Buscar disco">
+        <button class="button" id="buscarButton">Buscar</button>
+        <div id="mensajesBusqueda"></div>
+        <div id="productos"></div>
+    </div>
+
+    <div class="carrito">
+        <h2>Carrito de Compras</h2>
+        <div id="items" class="items"></div>
+        <p id="total" class="total">Total: $0.00</p>
+        <button class="button" id="comprarCarrito">Comprar Carrito</button>
+        <button class="button" id="vaciarCarrito">Vaciar Carrito</button>
+        <div id="mensajeCompra"></div>
+    </div>
+
+    <script src="main.js"></script>
 </body>
+
 </html>
